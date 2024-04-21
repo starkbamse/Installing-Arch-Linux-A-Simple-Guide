@@ -1,10 +1,6 @@
 # Installing Arch Linux - A "Simple" Guide
 *Get started using Arch Linux and familiarize with the intricacies of its use. This guide includes a tutorial on how to install arch linux with full disk encryption onto any computer.*
 
-## Index
-1. [Introduction](#introduction)
-
-
  
 ## Introduction
  Installing Arch Linux as a first-time Linux distribution is not recommended. Arch Linux has less protection against breaking your own system, rather it is better to start with a simple more user friendly Linux distribution such as Ubuntu.
@@ -38,7 +34,7 @@ Once you have accessed the BIOS select the USB drive from your boot menu/boot pr
 
 ### 3. Install Arch Linux
 
-*This part of the guide was largely inspired by https://github.com/huntrar and their https://gist.github.com/huntrar/e42aee630bee3295b2c671d098c81268. This part of the tutorial is merely a copy-paste with some clarifications that I found necessary to get a good understanding.*
+*This part of the guide was largely inspired by https://github.com/huntrar and their https://gist.github.com/huntrar/e42aee630bee3295b2c671d098c81268. This part of the tutorial is merely a copy-paste with some clarifications that I found necessary to get a better understanding of what we are doing.*
 
 #### Connect to internet (wireless)
 *If you are connected via Ethernet you should already be connected, and therfore you can skip this section*.
@@ -602,57 +598,27 @@ reboot
 
 When you have rebooted you will be prompted to enter the passphrase to decrypt the LUKS partition. This will take some time, but be patient.
 
-#### Fix Ethernet network problem
-Sometimes when you reboot the first time you will not have an internet connection. If this is the case you need to enable `dhcpcd`.
-
-First, confirm that your Ethernet device is recognized by the system:
-```bash
-ip link
-```
-This will list all network interfaces on your system. Look for your Ethernet interface, which is typically named `eth0`, `enp3s0`, `eno1`, or something similar.
-
-You will need to start the `dhcpcd` service on the specific interface. You can enable DHCP on your Ethernet interface by using:
-```bash
-sudo systemctl start dhcpcd@interface_name.service
-```
-Replace `interface_name` with the actual interface name from the previous step.
-
-To have `dhcpcd` start automatically at boot, enable the service:
-```bash
-sudo systemctl enable dhcpcd@interface_name.service
-```
+#### Completed
+Congratulations! You are now an Arch Linux user! Below you will find an installation guide for installing Nvidia Graphics drivers.
 
 #### Install graphic drivers (optional)
-If you have an Nvidia card the following steps will help you install the drivers for that. 
+To install Nvidia graphics drivers in compatibility with this tutorial visit: https://github.com/korvahannu/arch-nvidia-drivers-installation-guide
 
-This part of the tutorial has largely been inspired by: https://github.com/korvahannu/arch-nvidia-drivers-installation-guide and this section is merely here for putting things in one place.
+#### Install CUDA
 
-First you need to install base development packages necessary for developing software.
+After installing the drivers, install the appropriate CUDA version. 
+
+CUDA 12
 ```
-sudo pacman -S base-devel linux-headers git nano --needed
-```
-
-Then you need to install `yay`, a package manager for the user repository.
-
-Clone the git repo
-```
-git clone https://aur.archlinux.org/yay.git
+sudo pacman -S cuda
 ```
 
-Enter the yay directory
+CUDA 12 toolkit
 ```
-cd yay
-```
-
-Build the yay package
-```
-makepkg -si
+sudo pacman -S cuda-tools
 ```
 
-The installation is now complete. Exit the chroot and reboot.
-```
-exit
-reboot
-```
+****
 
+This installation guide was last tested April 21st 2024.
 
